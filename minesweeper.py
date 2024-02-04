@@ -5,6 +5,7 @@ import tkinter as tk #Rajzolási eszkoz beemelése a kódba 0,0 a bal felső sar
 import random #véletlen szám generáláshoz
 
 #LÉPÉSEK
+#List és Dictionary fogalma használata. Ciklusban lista minden elemét lekérdezni, változtatni
 #globális változók: pályaméret, cella méret, palya
 #játékciklus
 #palya feltöltése üres cellákkal
@@ -16,7 +17,6 @@ import random #véletlen szám generáláshoz
 #egérkezelés - kattintás bal - üres felderítés
 #szamolás
 #jaték vége
-#ujrakezdés
 
 #######################
 ## GLOBÁLIS VÁLTOZÓK ##
