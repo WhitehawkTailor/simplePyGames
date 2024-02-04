@@ -6,6 +6,7 @@ import math #szögek, távolság számításához
 import random #véletlen szám generáláshoz
 
 #LÉPÉSEK
+#List fogalma és használata. Ciklusban lista minden elemét lekérdezni, változtatni
 #Ablak létrehozása
 #jatek ciklus létrehozása - FPS fogalma - számol, töröl, kirajzol
 #Lufik változó létrehozása
