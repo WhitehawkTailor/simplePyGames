@@ -16,6 +16,7 @@ import random #véletlen szám generáláshoz
 #egérkezelés - kattintás bal - üres felderítés
 #szamolás
 #jaték vége
+#ujrakezdés
 
 #######################
 ## GLOBÁLIS VÁLTOZÓK ##
@@ -80,7 +81,9 @@ def uresFelderites(cella):
 def egerKattintas1(e):
     global palya, felfedettCellak, palyaMeret, bombaSzam, vege, gyozelem
 
-    if vege : return
+    if vege : 
+        kezdes()
+        return
 
     x=int(e.x / cellaMeret)
     y=int(e.y / cellaMeret)
@@ -91,6 +94,7 @@ def egerKattintas1(e):
             cella["jel"]=5 #bomba            
             palyaFelderites()                            
             vege = True
+            gyozelem=False
     
         if cella["bomba"]==0 and cella["szomszed"]>0:
             cella["jel"]=4 #bomba szomszed
@@ -105,6 +109,8 @@ def egerKattintas1(e):
             vege = True
             gyozelem = True
 
+
+
 #Információs kattintás
 def egerKattintas3(e):
 
@@ -112,7 +118,7 @@ def egerKattintas3(e):
 
     x=int(e.x / cellaMeret)
     y=int(e.y / cellaMeret)
-    print("x:",x,"y:",y)
+    #print("x:",x,"y:",y)
     cella=palya[y][x]
     if cella["jel"]<3:
         cella["jel"]=cella["jel"]+1
@@ -142,7 +148,7 @@ def palyaFelderites():
                     palya[y][x]["jel"]=5
 
 def jatek():
-    global c, felfedettCellak, palyaMeret, bombaSzam, cellaMeret
+    global c, felfedettCellak, palyaMeret, bombaSzam, cellaMeret, mx, my, palya
 
     #[kirajzolás]
     c.delete('all') #korábbi tartalom törlése, új képkocka rajzolás megkezdéséhez
@@ -194,7 +200,7 @@ def jatek():
                           fill=txtSzin, 
                           font=('Helvetica 18 bold'))           
     
-    #cella aktiválás
+    #cella aktiválás eger kurzor alatt
     if mx<palyaMeret*cellaMeret and my<palyaMeret*cellaMeret :
         c.create_rectangle(int(mx / cellaMeret) * cellaMeret,
                                int(my / cellaMeret) * cellaMeret,
@@ -251,7 +257,11 @@ def szomszedBomba(cella):
 
 
 def kezdes():
-    global palya, palyaMeret, cellaMeret
+    global palya, palyaMeret, cellaMeret, felfedettCellak, vege, gyozelem
+    vege=False
+    gyozelem=False
+    felfedettCellak=0
+    palya=[]
     sor = []
     #pálya mátrix feltöltése cellákkal
     for y in range(palyaMeret):
@@ -278,7 +288,7 @@ def kezdes():
         for x in range(palyaMeret):
             cella=palya[y][x]
             cella["szomszed"]=szomszedBomba(cella)
-
+    #játékciklus indítása
     jatek()
 
 
@@ -304,7 +314,8 @@ if __name__ == "__main__":
 
     sc.update()#tartalom frissítése        
 
+    #játék indítása
     kezdes()
-    jatek() #játék indítása
+    
 
     sc.mainloop() # Minden Python Tk programot így kell befejezni
