@@ -5,6 +5,7 @@ import tkinter as tk #Rajzolási eszkoz beemelése a kódba 0,0 a bal felső sar
 import math #szögek, távolság számításához
 
 #LÉPÉSEK
+#Dictionary fogalma használata
 #Ablak létrehozása
 #jatek ciklus létrehozása - FPS fogalma - számol, töröl, kirajzol
 #Labda változó létrehozása
