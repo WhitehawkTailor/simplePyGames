@@ -40,6 +40,8 @@ eredmenySzoveg=""
 
 #egérmozgás kezelése -  mozgatja az ágyút - ágyú szög számítása az agyu és a kurzor koordinátáiból és arctgn függvénnyel
 def egerMozgas(esemeny):    
+    global agyu
+
     agyu[2]=int(round(math.degrees(math.atan2(esemeny.x-agyu[0],esemeny.y-agyu[1]))))
     #print("szog:",agyu[2])
     if agyu[2]<0: agyu[2]=agyu[2]+360
@@ -48,7 +50,8 @@ def egerMozgas(esemeny):
 
 #egérkattintás kezelése - lövés
 def egerKattintas(esemeny):
-    global pontszam, eredmenySzoveg
+    global pontszam, eredmenySzoveg, lovedek, agyu
+
     pontszam = pontszam - 1 #minden lövés levon egy pontot
     eredmenySzoveg="pontszam: " + str(pontszam) + "  -1" #lövésenként eggyel csökken a pontszám
     #lövedék létrehozása az ágyu végpontjában az ágyú szögével
@@ -107,8 +110,8 @@ def jatek():
             if tavolsag(lufi[0], lufi[1], lovedek[0], lovedek[1]) < lufi[2]: #távolság kisebb, mint a lufi sugara
                 lovedekek.remove(lovedek)
                 lufik.remove(lufi)
-                pontszam = pontszam + 5 #találat esetén pontszám növelése
-                eredmenySzoveg="pontszam: " + str(pontszam) + "  +5"
+                pontszam = pontszam + 10 #találat esetén pontszám növelése
+                eredmenySzoveg="pontszam: " + str(pontszam) + "  +10"
 
         #lövedék és oldalfal ütközése esetén a lövedék kerüljön ki a listából, mintha kiment volna a képről
         #ritkán előfordulhat, hogy a lövedék a lufi ütközés miatt már kikerült a listából de a fal ütközés miatt is ki kell venni
