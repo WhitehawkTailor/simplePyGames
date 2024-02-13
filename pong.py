@@ -25,6 +25,7 @@ ablakMagassag = 600
 ablakSzelesseg = 1000
 labdaSebesség=15
 utoSebesseg=10
+kezdet = True
 
 jatekosA={"x":20, "y":300, "v":utoSebesseg, "vy":0, "size":90, "pont":0}
 jatekosB={"x":980, "y":300, "v":utoSebesseg, "vy":0, "size":90, "pont":0}
@@ -36,28 +37,35 @@ labda={"x":500, "y":300, "v":labdaSebesség, "vx":labdaSebesség, "vy":0, "meret
 #################################
 
 def billentyuMegnyomas(billentyu):
-    global jatekosA, jatekosB
+    global jatekosA, jatekosB, kezdet
+    
+    #print(billentyu.keysym," : ", billentyu.keycode)
+
+    if kezdet:
+        kezdet = False
+        jatek()
+        return
 
     #Q fel
-    if billentyu.keycode==24: #Q(fel) kódja 24
+    if billentyu.keysym=="q": #Q(fel) kódja 24
         jatekosA["vy"]=-jatekosA["v"] #a felfelé negatív irányban van
     #A le
-    if billentyu.keycode==38: #A(le) kódja 38
+    if billentyu.keysym=="a": #A(le) kódja 38
         jatekosA["vy"]=jatekosA["v"] #a lefelé pozitív irányban van
 
     #nyil fel
-    if billentyu.keycode==111: #nyil fel kódja 111
+    if billentyu.keysym=="Up": #nyil fel kódja 111
         jatekosB["vy"]=-jatekosB["v"] #a felfelé negatív irányban van
     #nyil le
-    if billentyu.keycode==116: #nyil le kódja 116
+    if billentyu.keysym=="Down": #nyil le kódja 116
         jatekosB["vy"]=jatekosB["v"] #a lefelé pozitív irányban van
 
 
 def billentyuElengedes(billentyu):
-    if billentyu.keycode==24 or billentyu.keycode==38 : #Q vagy A
+    if billentyu.keysym=="q" or billentyu.keysym=="a": #Q vagy A
         jatekosA["vy"]=0 #álljon meg
 
-    if billentyu.keycode==111 or billentyu.keycode==116 : #fel vagy le nyil
+    if billentyu.keysym=="Up" or billentyu.keysym=="Down" : #fel vagy le nyil
         jatekosB["vy"]=0 #álljon meg
 
 
@@ -91,7 +99,13 @@ def utes(jatekos):
 
 def jatek():
     #globális változók
-    global jatekosA, jatekosB, labda, c, ablakMagassag, ablakSzelesseg
+    global jatekosA, jatekosB, labda, c, ablakMagassag, ablakSzelesseg, kezdet
+
+
+    if kezdet :
+        c.create_text(500, 120, text="Iranyítás  q,a  /  Fel,Le", fill="yellow", font=('Helvetica 30 bold'))
+        c.create_text(500, 200, text="új játékhoz nyomj egy gombot", fill="green", font=('Helvetica 35 bold'))
+        return
 
     #[SZÁMOLÁS]
     #ütő mozgatása A
@@ -114,12 +128,12 @@ def jatek():
     labdaMozgatas()
     
     #ha labda ütőt ér
-    #A jatekos mögött van a labda de az ütő területét éri el
+    #Az A jatekos mögött van a labda de az ütő területét éri el
     if labda["x"] < jatekosA["x"]:
         if labda["y"]>jatekosA["y"]-jatekosA["size"]/2 and labda["y"]<jatekosA["y"]+jatekosA["size"]/2:            
             utes(jatekosA)
 
-    #B jatekos mögött van a labda de az ütő területét éri el
+    #A B jatekos mögött van a labda de az ütő területét éri el
     if labda["x"] > jatekosB["x"]:
         if labda["y"]>jatekosB["y"]-jatekosB["size"]/2 and labda["y"]<jatekosB["y"]+jatekosB["size"]/2:
             utes(jatekosB)
@@ -132,10 +146,10 @@ def jatek():
     #ha labda jobb, bal szélét éri - pontszámítás
     if labda["x"]<0 or labda["x"]>ablakSzelesseg:
         #pontszamítás
-        if labda["vx"] < 0 :
+        if labda["vx"] < 0 :#A-nál ment ki a labda
             jatekosB["pont"]+=1
             labda["vx"]=labda["v"]
-        else :        
+        else :        #B-nél ment ki a labda
             jatekosA["pont"]+=1
             labda["vx"]=-labda["v"]
 
@@ -165,9 +179,6 @@ def jatek():
     sc.update() 
     
     sc.after(30, jatek)#jatek eljárás újbóli meghívása 30ms múlva
-
-
-
 
 
 #############################
