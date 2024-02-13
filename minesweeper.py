@@ -22,8 +22,8 @@ import random #véletlen szám generáláshoz
 ## GLOBÁLIS VÁLTOZÓK ##
 #######################
 
-palyaMeret=10 #10x10 cella
-bombaSzam=10
+palyaMeret=15 #15x15 cella
+bombaSzam=20
 cellaMeret=60
 felfedettCellak=0
 maxFelfedhetoCella = palyaMeret*palyaMeret-bombaSzam
@@ -262,7 +262,6 @@ def kezdes():
     gyozelem=False
     felfedettCellak=0
     palya=[]
-    sor = []
     #pálya mátrix feltöltése cellákkal
     for y in range(palyaMeret):
         sor = []
@@ -276,8 +275,8 @@ def kezdes():
     for i in range(bombaSzam):
         tovabb=True
         while tovabb:
-            bx=random.randint(0,9)
-            by=random.randint(0,9)
+            bx=random.randint(0,palyaMeret-1)#a határok is benne vannak
+            by=random.randint(0,palyaMeret-1)
             cella=palya[by][bx]
             if cella["bomba"]==0:
                 cella["bomba"]=1
@@ -299,7 +298,7 @@ def kezdes():
 if __name__ == "__main__":    
     sc = tk.Tk()# Grafikus ablak létrehozása
     sc.title("Aknakereső")#ablak címe    
-    sc.geometry("1000x600")#ablak mérete
+    #sc.geometry("1000x600")#ablak mérete
     sc.geometry(str(palyaMeret*cellaMeret)+"x"+str(palyaMeret*cellaMeret+2*cellaMeret))#ablak mérete
     sc.config(cursor="plus") #célkereszt legyen a kurzor cross
     sc.resizable(False, False)#nem lehet átméretezni
