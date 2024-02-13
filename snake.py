@@ -38,38 +38,36 @@ def abs(arg):
     if arg<0 : return -arg
     return arg
 
-
+#keycode más Linuxon, mint Windowson. A hordozhatóság érdekében a keysym (szimbolum) használatos.
 def billentyuMegnyomas(billentyu):
     global kukac, vege
     
-    #print(billentyu.keycode)
+    print(billentyu.keysym," : ", billentyu.keycode)
 
     if vege:
         kezdes()
         return
 
-    if billentyu.keycode==111: #nyil fel kódja 111
+    if billentyu.keysym=="Up": #nyil fel kódja 111
         if kukac["vy"]!=kukac["lepes"]: #ne tudjon magába fordulni
             kukac["vx"]=0
             kukac["vy"]=-kukac["lepes"]
 
-    if billentyu.keycode==116: #nyil le kódja 116
+    if billentyu.keysym=="Down": #nyil le kódja 116
         if kukac["vy"]!=-kukac["lepes"]:
             kukac["vx"]=0
             kukac["vy"]=kukac["lepes"]
 
-    if billentyu.keycode==113: #nyil bal kódja 113
+    if billentyu.keysym=="Left": #nyil bal kódja 113
         if kukac["vx"]!=kukac["lepes"]:
             kukac["vx"]=-kukac["lepes"]
             kukac["vy"]=0
 
-    if billentyu.keycode==114: #nyil jobb kódja 114
+    if billentyu.keysym=="Right": #nyil jobb kódja 114
         if kukac["vx"]!=-kukac["lepes"]:
             kukac["vx"]=kukac["lepes"]
             kukac["vy"]=0
         
-    
-
 
 def utkozes():
     global kukac, ablakMagassag, ablakSzelesseg, meret
