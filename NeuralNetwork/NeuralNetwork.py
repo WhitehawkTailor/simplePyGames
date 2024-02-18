@@ -91,7 +91,7 @@ from matplotlib import pyplot as plt
 
 
 #adatok beolvasása
-data = pd.read_csv('train.csv')
+data = pd.read_csv('train.csv') #train.zip-ből ki kell csomagolni
 data = np.array(data) #tömböt készít belőle, de kihagyja az első sort, ami a neveké
 m, n = data.shape   #m sorok (ennyi minta van -1 title sor) és n oszlopok, beleértve az oszlop nevek sorát is
 np.random.shuffle(data)  #megkeveri a sorokat, hogy ne sorrendbe legyenek a számok
